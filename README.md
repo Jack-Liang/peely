@@ -58,6 +58,15 @@ npx gh-pages -d dist    # 或把 dist/ 推到 gh-pages 分支
 
 **Vercel / Netlify：** 导入仓库，构建命令 `npm run build`，输出目录 `dist`，直接部署即可。
 
+**Cloudflare Workers（推荐，支持 GitHub 推送自动部署）：**
+
+1. 项目已含 `wrangler.jsonc`（静态资源指向 `dist/`，SPA 回退）。
+2. Cloudflare 控制台 → **Workers & Pages → Create → Workers 标签 → Import a repository**，授权 GitHub 并选中 `peely` 仓库。
+3. 构建配置：Build command 填 `npm run build`，Deploy command 填 `npx wrangler deploy`。
+4. Save and Deploy。之后每次 `git push`，Cloudflare 自动构建并发布到 `https://peely.<你的子域>.workers.dev`，也可在 Settings → Domains & Routes 绑定自定义域名。
+
+本地手动发布也可以：`npm run deploy`（需先 `npx wrangler login`）。
+
 HTTPS 不是硬性要求，但若部署在公网建议启用（剪贴板 API 在非安全源下部分浏览器会受限）。
 
 ## 目录结构
