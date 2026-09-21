@@ -1,0 +1,79 @@
+/* Hallmark · tokens · genre: modern-minimal · theme: 静水 (refined utilitarian blue)
+ * 双主题设计 token：颜色 / 圆角 / 阴影 / 缓动 / 字体。组件样式一律引用这些名字，不内联色值。
+ */
+
+:root {
+  /* 颜色 · 浅色 */
+  --bg: #eef1f5;
+  --panel-bg: #ffffff;
+  --panel2-bg: #f6f8fa;
+  --fg: #1c2430;
+  --muted: #66738a;
+  --border: #dfe4ec;
+  --border-strong: #c7d0dd;
+  --accent: #2e6be6;
+  --accent-strong: #2456c8;
+  --accent-weak: rgba(46, 107, 230, 0.11);
+  --hover-bg: rgba(28, 36, 48, 0.055);
+  --key-fg: #0b5cad;
+  --str-fg: #0a7d43;
+  --num-fg: #b25e09;
+  --lit-fg: #8a4fd3;
+  --punc-fg: #8792a3;
+  --nest-fg: #0e7d99;
+  --err-fg: #d32735;
+  --err-bg: rgba(211, 39, 53, 0.08);
+  --ok-fg: #148a4b;
+  --hit-bg: rgba(217, 165, 20, 0.38);
+  --hit-row: rgba(217, 165, 20, 0.1);
+  --hit-row-cur: rgba(217, 165, 20, 0.3);
+  --gutter-fg: #a4afbf;
+
+  /* 圆角 / 阴影 / 缓动 */
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-full: 999px;
+  --shadow-sm: 0 1px 2px rgba(23, 32, 45, 0.07);
+  --shadow-md: 0 4px 14px rgba(23, 32, 45, 0.1);
+  --shadow-lg: 0 8px 28px rgba(23, 32, 45, 0.16);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.12s;
+  --dur: 0.18s;
+
+  /* 字体 */
+  --mono-font: 'Cascadia Code', 'JetBrains Mono', Consolas, 'SF Mono', Menlo, monospace;
+  --ui-font: -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0f1216;
+  --panel-bg: #161a20;
+  --panel2-bg: #1b2027;
+  --fg: #d8dee7;
+  --muted: #8b96a5;
+  --border: #272e38;
+  --border-strong: #333c49;
+  --accent: #6b9cff;
+  --accent-strong: #8ab2ff;
+  --accent-weak: rgba(107, 156, 255, 0.14);
+  --hover-bg: rgba(216, 222, 231, 0.06);
+  --key-fg: #7cb7ff;
+  --str-fg: #79d98f;
+  --num-fg: #ecc86b;
+  --lit-fg: #cf9fff;
+  --punc-fg: #76828f;
+  --nest-fg: #5fd0e0;
+  --err-fg: #ff8087;
+  --err-bg: rgba(255, 128, 135, 0.11);
+  --ok-fg: #4ac76f;
+  --hit-bg: rgba(227, 179, 65, 0.4);
+  --hit-row: rgba(227, 179, 65, 0.12);
+  --hit-row-cur: rgba(227, 179, 65, 0.3);
+  --gutter-fg: #4d5665;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
