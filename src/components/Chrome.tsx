@@ -321,7 +321,7 @@ export function Toolbar(p: ToolbarProps) {
     <div className="toolbar">
       <div className="brand" aria-hidden="true">
         <span className="brand-mark">{'{}'}</span>
-        <span className="brand-name">JSON 工具</span>
+        <span className="brand-name">Peely</span>
       </div>
       <span className="tool-sep" />
       <div className="tool-group">
