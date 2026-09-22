@@ -11,6 +11,8 @@ export interface TreeRow {
   expanded: boolean;
   childCount: number;
   preview: string;
+  /** 叶子值的完整文本（未截断），详情面板/悬停提示用 */
+  full: string;
   /** 用于复制：嵌套层保留的是原始字符串而非解析后的值 */
   origValue: unknown;
   nestCandidate: boolean;
@@ -69,6 +71,13 @@ export function flattenTree(
       expanded: isOpen,
       childCount,
       preview: isContainer ? '' : previewOf(disp, unicode),
+      full: isContainer
+        ? ''
+        : typeof disp === 'string'
+          ? unicode
+            ? disp
+            : escapeNonAscii(disp)
+          : String(disp),
       origValue: v,
       nestCandidate: !isContainer && typeof v === 'string' && !st && isJsonCandidate(v),
       nestedState: st,

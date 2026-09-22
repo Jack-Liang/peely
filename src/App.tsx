@@ -59,6 +59,9 @@ export default function App() {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const [nested, setNested] = useState<Map<string, NestedState>>(() => new Map());
   const [selected, setSelected] = useState<string | null>(null);
+  const [inspect, setInspect] = useState<{ path: string; text: string; origValue: unknown } | null>(
+    null,
+  );
   const [search, setSearch] = useState('');
   const [matchIdx, setMatchIdx] = useState(0);
   const [filterOn, setFilterOn] = useState(false);
@@ -94,6 +97,7 @@ export default function App() {
       if (m.type !== 'result') return;
       setResult(m.result);
       if (m.result.ok && !m.rerender) {
+        setInspect(null);
         if (prefsRef.current.parseAll) {
           const nm = parseAllNested(m.result.value);
           setNested(nm);
@@ -276,7 +280,7 @@ export default function App() {
     setNavNonce((n) => n + 1);
   }, []);
 
-  // Ctrl+F 聚焦搜索框
+  // Ctrl+F 聚焦搜索框；Esc 关闭值详情面板
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
@@ -284,6 +288,7 @@ export default function App() {
         searchInputRef.current?.focus();
         searchInputRef.current?.select();
       }
+      if (e.key === 'Escape') setInspect(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -631,6 +636,9 @@ export default function App() {
                 onPathTextChange={setPathText}
                 onPathSubmit={submitPath}
                 scrollTarget={{ path: curTreeMatch ? curTreeMatch.path : '', n: navNonce }}
+                inspect={inspect}
+                onInspect={setInspect}
+                onInspectClose={() => setInspect(null)}
                 onToggle={onToggle}
                 onSelect={setSelected}
                 onParseNest={parseNest}

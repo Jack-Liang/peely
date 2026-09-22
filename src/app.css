@@ -1106,6 +1106,75 @@ body {
   max-width: 40%;
 }
 
+.tree-value.inspectable {
+  cursor: pointer;
+}
+
+.tree-value.inspectable:hover {
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+
+/* 值详情面板：点击被截断的长值后弹出，显示完整内容 */
+.value-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 46%;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg);
+  border-top: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  animation: panel-in var(--dur) var(--ease-out);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.value-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  flex: none;
+  min-height: 34px;
+}
+
+.value-panel-path {
+  font-family: var(--mono-font);
+  font-size: 11.5px;
+  color: var(--nest-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 60px;
+}
+
+.value-panel-body {
+  margin: 0;
+  padding: 10px 12px;
+  overflow: auto;
+  font: 12px/1.65 var(--mono-font);
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--fg);
+  flex: 1;
+  min-height: 48px;
+}
+
 .val-str {
   color: var(--str-fg);
 }

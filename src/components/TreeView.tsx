@@ -5,6 +5,12 @@ import type { TreeRow } from '../lib/tree';
 
 const ROW_H = 26;
 
+export interface InspectTarget {
+  path: string;
+  text: string;
+  origValue: unknown;
+}
+
 interface Props {
   root: unknown;
   expanded: Set<string>;
@@ -22,6 +28,10 @@ interface Props {
   onPathSubmit(v: string): void;
   /** 定位滚动目标；n 变化时触发一次滚动 */
   scrollTarget: { path: string; n: number };
+  /** 值详情面板 */
+  inspect: InspectTarget | null;
+  onInspect(t: InspectTarget): void;
+  onInspectClose(): void;
   onToggle(path: string): void;
   onSelect(path: string): void;
   onParseNest(path: string, raw: string): void;
@@ -147,8 +157,13 @@ export function TreeView(props: Props) {
                 </span>
               ) : (
                 <span
-                  className={'tree-value val-' + r.kind + hit(r.path)}
-                  title={r.preview.length >= 160 ? r.preview : undefined}
+                  className={'tree-value val-' + r.kind + ' inspectable' + hit(r.path)}
+                  title={r.full || undefined}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    props.onSelect(r.path);
+                    props.onInspect({ path: r.path, text: r.full, origValue: r.origValue });
+                  }}
                 >
                   {r.preview}
                 </span>
@@ -203,6 +218,34 @@ export function TreeView(props: Props) {
           )}
         </div>
       </div>
+      {props.inspect && (
+        <div className="value-panel">
+          <div className="value-panel-head">
+            <code className="value-panel-path" title={props.inspect.path}>
+              {props.inspect.path}
+            </code>
+            <button
+              className="mini-btn"
+              title="复制完整值（受「保留转义」开关影响）"
+              onClick={() => props.onCopyValue(props.inspect!.origValue)}
+            >
+              复制值
+            </button>
+            <button
+              className="mini-btn"
+              title="复制路径"
+              onClick={() => props.onCopyPath(props.inspect!.path)}
+            >
+              复制路径
+            </button>
+            <span className="flex-spacer" />
+            <button className="mini-btn" title="关闭（Esc）" onClick={props.onInspectClose}>
+              ✕
+            </button>
+          </div>
+          <pre className="value-panel-body">{props.inspect.text}</pre>
+        </div>
+      )}
     </div>
   );
 }
